@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>სამხრეთ საქართველოს ისტორიის მასალები</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', 'Times New Roman', serif; line-height: 1.6; color: #333; background: #fdfdfd; font-size: 16px; }
+        .georgian-text, h1, .prosopo-controls input, .prosopo-controls select, .person-card-header, .family-member { font-family: 'Noto Serif Georgian', 'BPG Nino Mtavruli', 'DejaVu Sans', Arial, sans-serif; }
+        .header { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 1.5rem 2rem; position: sticky; top: 0; z-index: 100; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .header-title { flex: 1; }
+        h1 { font-size: 2rem; color: #2c3e50; font-weight: 500; margin: 0 0 0.3rem 0; }
+        .subtitle { font-size: 1rem; color: #7f8c8d; font-style: italic; }
+        .meta-info { font-size: 0.85rem; color: #95a5a6; margin-top: 0.5rem; }
+        .lang-toggle button { padding: 0.5rem 1rem; border: 1px solid #bdc3c7; background: white; color: #2c3e50; cursor: pointer; font-size: 0.85rem; border-radius: 4px; transition: all 0.2s; }
+        .lang-toggle button:hover { background: #ecf0f1; }
+        .nav-tabs { display: flex; gap: 0; margin-top: 1rem; border-bottom: 1px solid #e0e0e0; }
+        .nav-tabs button { padding: 0.8rem 1.5rem; border: none; background: transparent; color: #7f8c8d; cursor: pointer; font-size: 1rem; transition: all 0.2s; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+        .nav-tabs button.active { color: #2980b9; border-bottom-color: #2980b9; font-weight: 500; }
+        .nav-tabs button:hover:not(.active) { color: #34495e; }
+        .main-container { max-width: 1400px; margin: 0 auto; padding: 2rem; min-height: calc(100vh - 180px); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-content h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.6rem; font-weight: 400; border-bottom: 1px solid #ecf0f1; padding-bottom: 0.8rem; }
+        .reading-layout { display: grid; grid-template-columns: 300px 1fr 350px; gap: 2rem; height: calc(100vh - 250px); }
+        .panel { background: white; border: 1px solid #e0e0e0; border-radius: 5px; overflow: hidden; display: flex; flex-direction: column; }
+        .panel-header { padding: 1rem; border-bottom: 1px solid #e0e0e0; background: #f8f9fa; font-weight: 500; font-size: 1rem; color: #2c3e50; flex-shrink: 0; }
+        .panel-content { padding: 0; flex-grow: 1; overflow-y: auto; }
+        #textPanel .panel-content { padding: 1.5rem; }
+        .toc-list, .index-list { list-style: none; padding: 0; }
+        .toc-list > li { border-bottom: 1px solid #f1f3f5; }
+        .toc-list > li:last-child { border-bottom: none; }
+        .toc-list .toc-entry-item, .index-item { padding: 0.4rem 1rem; cursor: pointer; transition: background 0.2s; font-size: 0.9rem; }
+        .toc-list .toc-entry-item:hover, .index-item:hover { background-color: #f1f3f5; }
+        .toc-list .toc-entry-item.active { background-color: #e9ecef; color: #2980b9; font-weight: 500; }
+        .toc-manuscript-header { font-weight: bold; padding: 0.6rem 1rem !important; color: #2c3e50; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .toc-manuscript-header .collapse-icon { transition: transform 0.2s; color: #7f8c8d; }
+        .toc-manuscript-header .collapse-icon.expanded { transform: rotate(90deg); }
+        .toc-manuscript-header:hover { background-color: #e9ecef !important; }
+        .toc-entry-list { list-style: none; padding-left: 0; display: none; }
+        .toc-entry-list.active { display: block; }
+        .toc-entry-item { padding-left: 1.5rem !important; }
+        .index-item.highlighted-by-index { background-color: #ffeaa7; }
+        .text-controls { display: flex; gap: 1rem; padding: 1rem; border-bottom: 1px solid #e0e0e0; align-items: center; flex-wrap: wrap; background: #f8f9fa; }
+        .text-controls button { padding: 0.5rem 1rem; border: 1px solid #bdc3c7; background: white; cursor: pointer; font-size: 0.9rem; border-radius: 4px; transition: all 0.2s; }
+        .text-controls button.active { background: #3498db; color: white; border-color: #3498db; }
+        .display-options { display: flex; gap: 1rem; margin-left: auto; font-size: 0.9rem; }
+        .display-options label { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+        #textContainer { font-size: 1.1rem; line-height: 1.8; padding: 0 1.5rem; }
+        .entry .text-content p { margin-bottom: 1em; }
+        .entry { margin-top: 2rem; padding: 1.5rem; padding-left: 4.5rem; background: white; position: relative; }
+        #textContainer .entry:first-child { margin-top: 0; }
+        .entry-manuscript-name { position: absolute; left: 1.5rem; top: 1.5rem; font-size: 0.9rem; color: #2980b9; font-weight: bold; }
+        .entry-number { position: absolute; left: 1.5rem; top: 3.0rem; font-size: 0.9rem; color: #95a5a6; font-weight: 700; }
+        .collapsible-section { border-bottom: 1px solid #e0e0e0; }
+        .collapsible-section:last-child { border-bottom: none; }
+        .collapsible-header { padding: 1rem; background: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 500; color: #2c3e50; }
+        .collapsible-header:hover { background: #e9ecef; }
+        .collapsible-content { padding: 1rem; display: none; background: #fff; }
+        .panel-content .collapsible-content { padding: 0.5rem; }
+        .collapsible-content.active { display: block; }
+        .collapse-icon { transition: transform 0.2s; color: #7f8c8d; }
+        .collapse-icon.expanded { transform: rotate(90deg); }
+        .manuscript-info-panel { padding: 1rem; font-size: 0.9rem; line-height: 1.5; }
+        .manuscript-info-panel p { margin-bottom: 0.8rem; }
+        .manuscript-info-panel strong { color: #34495e; }
+        .legend-item { font-size: 0.9rem; margin: 0.4rem 0; display: flex; align-items: center; gap: 0.8rem; }
+        .person-name { background: #fff9c4; padding: 1px 4px; cursor: pointer; transition: background 0.2s; border-radius: 3px; border-bottom: 1px solid #fdd835; }
+        .prosopo-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; padding: 1.5rem; background: white; border: 1px solid #e0e0e0; border-radius: 5px; }
+        .prosopo-controls input, .prosopo-controls select { padding: 0.6rem; border: 1px solid #ccc; border-radius: 4px; }
+        .stat-card { background: white; border: 1px solid #e0e0e0; padding: 1.5rem; text-align: center; border-radius: 5px; }
+        .stat-number { font-size: 2rem; font-weight: 600; color: #2c3e50; display: block; }
+        .stat-label { font-size: 0.9rem; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.5rem; display: block; }
+        .person-card { border: 1px solid #e0e0e0; margin-bottom: 1.5rem; border-radius: 5px; overflow: hidden; transition: box-shadow 0.2s; }
+        .person-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .person-card-header { padding: 1rem 1.5rem; background: #f8f9fa; font-size: 1.2rem; font-weight: 500; }
+        .person-details { padding: 1.5rem; }
+        .detail-item { display: flex; margin-bottom: 0.5rem; }
+        .detail-label { font-weight: 500; margin-right: 0.5rem; min-width: 90px; color: #7f8c8d; }
+        .family-section { padding: 1rem 1.5rem; border-top: 1px solid #e9ecef; background: #fdfdfd;}
+        .family-title { font-weight: bold; margin-bottom: 0.5rem; font-size: 0.9rem; color: #34495e;}
+        .family-member { display: inline-block; background: #e9ecef; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.85rem; margin-right: 0.5rem; margin-bottom: 0.5rem;}
+        .tooltip { position: absolute; background: #2c3e50; color: white; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; pointer-events: none; z-index: 1000; display: none; opacity: 0; transition: opacity 0.2s; }
+        .person-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 0; border: 1px solid #dee2e6; box-shadow: 0 5px 25px rgba(0,0,0,0.15); z-index: 2000; max-width: 600px; width: 90%; border-radius: 5px; display: none; }
+        .person-popup .popup-header { background: #f8f9fa; padding: 1rem 1.5rem; border-bottom: 1px solid #dee2e6;}
+        .person-popup .popup-content { padding: 1.5rem; max-height: 60vh; overflow-y: auto;}
+        .person-popup h3 { margin: 0; }
+        .person-popup p { margin-bottom: 1rem;}
+        .person-popup .close { position: absolute; top: 0.8rem; right: 1.2rem; cursor: pointer; font-size: 1.5rem; color: #95a5a6; }
+        .person-popup strong { color: #34495e; }
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1999; display: none; }
+        .footer { background: #2c3e50; padding: 1.5rem 2rem; text-align: center; font-size: 0.9rem; color: #bdc3c7; margin-top: 3rem; }
+        @media (max-width: 1200px) { .reading-layout { grid-template-columns: 250px 1fr; } .panel:last-child { display: none; } }
+        @media (max-width: 768px) { body { font-size: 14px; } .header-content { flex-direction: column; align-items: flex-start; gap: 1rem; } .nav-tabs { flex-wrap: wrap; } .reading-layout { grid-template-columns: 1fr; height: auto; } .panel { height: auto; } .prosopo-controls, .stats-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-title"><h1 id="mainTitle" class="georgian-text">სამხრეთ საქართველოს ისტორიის მასალები</h1><div class="subtitle georgian-text" id="georgianSubtitle">ციფრული სამეცნიერო გამოცემა</div><div class="subtitle" id="englishSubtitle">A Digital Scholarly Edition</div><div class="meta-info" id="metaInfo"><strong>წყარო:</strong>ქრისტინე შარაშიძე, 1961</div></div>
+            <div class="lang-toggle"><button onclick="toggleLanguage()" id="langToggle">English</button></div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="nav-tabs">
+            <button onclick="setTab('reading')" id="readingTab" class="active georgian-text">კითხვის ხედი</button>
+            <button onclick="setTab('prosopography')" id="prosopographyTab" class="georgian-text">პროსოპოგრაფია</button>
+            <button onclick="setTab('research')" id="researchTab" class="georgian-text">კვლევა</button>
+            <button onclick="setTab('about')" id="aboutTab" class="georgian-text">შესახებ</button>
+        </div>
+        <div id="readingView" class="tab-content active">
+            <div class="reading-layout">
+                <div class="panel">
+                    <div class="panel-header" id="tocTitle">სარჩევი</div>
+                    <div class="panel-content">
+                        <div class="collapsible-section"><div class="collapsible-header" onclick="toggleCollapsible(this)"><span id="entryListTitle" class="georgian-text">ხელნაწერები</span><span class="collapse-icon expanded">▶</span></div><div class="collapsible-content active"><ul class="toc-list" id="tocList"></ul></div></div>
+                        <div class="collapsible-section"><div class="collapsible-header" onclick="toggleCollapsible(this)"><span id="indexTitle" class="georgian-text">პირთა ინდექსი</span><span class="collapse-icon expanded">▶</span></div><div class="collapsible-content active"><div class="index-list" id="personIndex"></div></div></div>
+                    </div>
+                </div>
+                <div class="panel" id="textPanel">
+                    <div class="text-controls"><button onclick="setTextView('georgian')" id="georgianBtn" class="active georgian-text">ქართული</button><button onclick="setTextView('english')" id="englishBtn">English</button><div class="display-options"><label><input type="checkbox" id="showExpanded" checked><span id="expandedLabel" class="georgian-text">ქარაგმა</span></label><label><input type="checkbox" id="showMarkup" checked><span id="markupLabel" class="georgian-text">მარკირება</span></label></div></div>
+                    <div class="panel-content"><div id="textContainer"></div></div>
+                </div>
+                <div class="panel">
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)"><span id="facsimileTitle">ხელნაწერის აღწერილობა</span><span class="collapse-icon expanded">▶</span></div>
+                        <div class="collapsible-content active">
+                            <div class="manuscript-info-panel" id="manuscriptInfoPanel">
+                                <p id="manuscriptInfoPlaceholder">აირჩიეთ მუხლი ხელნაწერის შესახებ ინფორმაციის სანახავად.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapsible-section"><div class="collapsible-header" onclick="toggleCollapsible(this)"><span id="legendTitle">ნიშნების განმარტება</span><span class="collapse-icon expanded">▶</span></div><div class="collapsible-content active"><div class="legend" id="legendContainer"></div></div></div>
+                    <div class="collapsible-section"><div class="collapsible-header" onclick="toggleCollapsible(this)"><span id="notesTitle">შენიშვნები</span><span class="collapse-icon">▶</span></div><div class="collapsible-content"><div id="apparatusNotes"><p id="notesContent">კონკრეტულ მუხლზე დაწკაპებისას აქ გამოჩნდება კრიტიკული აპარატი და დამატებითი შენიშვნები.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- This is the content for the Prosopography Tab -->
+        <div id="prosopographyView" class="tab-content">
+            <h2 id="prosopographyTitle">პროსოპოგრაფია</h2>
+            <p id="prosopographyIntro" class="georgian-text" style="margin-bottom: 2rem; max-width: 800px;">ამ კოლექციაში შემავალ ხელნაწერებში ხსენებული პირების სისტემატური ანალიზი.</p>
+
+            <div class="prosopo-controls">
+                <input type="text" id="nameSearch" placeholder="სახელი" onkeyup="performSearch()">
+                <input type="text" id="patronymicSearch" placeholder="გვარი/მამისახელი" onkeyup="performSearch()">
+                <select id="typeFilter" onchange="performSearch()">
+                    <option value="">ყველა სტატუსი</option>
+                    <option value="main">მთავარი პირი</option>
+                    <option value="parent">მშობელი</option>
+                    <option value="kinship">ნათესავი</option>
+                    <option value="witness">მოწმე</option>
+                </select>
+                <button onclick="clearSearch()" id="clearBtn">გასუფთავება</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                <div class="stat-card"><span id="totalEntries" class="stat-number">0</span><span class="stat-label" id="entriesLabel">მუხლი</span></div>
+                <div class="stat-card"><span id="totalPersons" class="stat-number">0</span><span class="stat-label" id="personsLabel">პირი</span></div>
+                <div class="stat-card"><span id="uniquePatronymics" class="stat-number">0</span><span class="stat-label" id="patronymicsLabel">გვარი/მამისახელი</span></div>
+                <div class="stat-card"><span id="occupationsCount" class="stat-number">0</span><span class="stat-label" id="occupationsLabel">სტატუსი/პროფესია</span></div>
+            </div>
+
+            <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #7f8c8d;"><strong><span id="resultsCount">0</span> <span id="resultsCountLabel">შედეგი</span></strong></p>
+            <div id="personCards"></div>
+        </div>
+
+        <!-- This is the content for the Research Tab -->
+        <div id="researchView" class="tab-content">
+            <h2 id="researchTabTitle" class="georgian-text">კვლევა</h2>
+            <p>ეს სექცია დამუშავების პროცესშია.</p>
+        </div>
+
+        <!-- This is the content for the About Tab -->
+        <div id="aboutView" class="tab-content">
+            <h2 id="aboutTabTitle" class="georgian-text">შესახებ</h2>
+            <p>ეს პროექტი წარმოადგენს სამხრეთ საქართველოს ისტორიული მასალების ციფრულ სამეცნიერო გამოცემას.</p>
+        </div>
+    </div>
+    <div class="footer"><p>© ილიას სახელმწიფო უნივერსიტეტი, 2025 | Creative Commons Attribution 4.0</p></div>
+    <div class="tooltip" id="tooltip"></div>
+    <div class="overlay" id="overlay" onclick="closePersonPopup()"></div>
+    <div class="person-popup" id="personPopup">
+        <div class="popup-header"><h3 id="popupName" class="georgian-text"></h3></div>
+        <div class="popup-content" id="popupContent"></div>
+        <span class="close" onclick="closePersonPopup()">×</span>
+    </div>
+
+    <!-- DATA FILES -->
+    <script src="manuscript_data.js"></script>
+    <script src="authority_data.js"></script> <!-- <<< LOAD THE NEW AUTHORITY FILE -->
+
+    <script>
+        // --- TRANSLATION AND CONFIGURATION ---
+        const translations = {
+            ka: {
+                mainTitle: "სამხრეთ საქართველოს ისტორიის მასალები", georgianSubtitle: "ციფრული სამეცნიერო გამოცემა", englishSubtitle: "A Digital Scholarly Edition", metaInfo: `<strong>წყარო:</strong> ქრისტინე შარაშიძე, 1961`,
+                readingTab: "კითხვის ხედი", prosopographyTab: "პროსოპოგრაფია", researchTab: "კვლევა", aboutTab: "შესახებ",
+                langToggle: "English", tocTitle: "სარჩევი", entryListTitle: "ხელნაწერები", indexTitle: "პირთა ინდექსი",
+                expandedLabel: "ქარაგმა", markupLabel: "მარკირება", facsimileTitle: "ხელნაწერის აღწერილობა",
+                manuscriptInfoPlaceholder: "აირჩიეთ მუხლი ხელნაწერის შესახებ ინფორმაციის სანახავად.",
+                legendTitle: "ნიშნების განმარტება", suppliedDesc: "დაკარგული ტექსტის აღდგენა", deletedDesc: "წაშლილი ტექსტი", addedDesc: "დამატებული ტექსტი", abbrDesc: "ქარაგმა", personDesc: "პირის სახელი", gapDesc: "დაზიანებული/გაურკვეველი ტექსტი",
+                notesTitle: "შენიშვნები", bioTitle: "ბიოგრაფიული ცნობა", datesTitle: "თარიღები", relatedTitle: "დაკავშირებული პირები",
+                notesContent: "კონკრეტულ მუხლზე დაწკაპებისას აქ გამოჩნდება კრიტიკული აპარატი და დამატებითი შენიშვნები.",
+                prosopographyTitle: "პროსოპოგრაფია", prosopographyIntro: "ამ კოლექციაში შემავალ ხელნაწერებში ხსენებული პირების სისტემატური ანალიზი.",
+                searchBtn: "ძიება", clearBtn: "გასუფთავება", entriesLabel: "მუხლი", personsLabel: "პირი", patronymicsLabel: "გვარი/მამისახელი", occupationsLabel: "სტატუსი/პროფესია",
+                entryLabel: "მუხლი:", typeLabel: "სტატუსი:", patronymicLabel: "გვარი:", occupationLabel: "პროფესია:", familyTitle: "ოჯახი:", resultsCountLabel: "შედეგი",
+                role: { main: "მთავარი პირი", parent: "მშობელი", kinship: "ნათესავი", witness: "მოწმე" },
+            },
+            en: {
+                mainTitle: "Historical Materials of Southern Georgia", georgianSubtitle: "სამხრეთ საქართველოს ისტორიის მასალები", englishSubtitle: "A Digital Scholarly Edition", metaInfo: `<strong>Source:</strong> Kristine Sharashidze, 1961`,
+                readingTab: "Reading View", prosopographyTab: "Prosopography", researchTab: "Research", aboutTab: "About",
+                langToggle: "ქართული", tocTitle: "Contents", entryListTitle: "Manuscripts", indexTitle: "Index of Persons",
+                expandedLabel: "Abbreviations", markupLabel: "Markup", facsimileTitle: "Manuscript Description",
+                manuscriptInfoPlaceholder: "Select an item to see manuscript information.",
+                legendTitle: "Legend", suppliedDesc: "Supplied text (lost)", deletedDesc: "Deleted text", addedDesc: "Added text", abbrDesc: "Abbreviation", personDesc: "Person name", gapDesc: "Damaged/illegible text",
+                notesTitle: "Notes", bioTitle: "Biographical Note", datesTitle: "Dates", relatedTitle: "Related Persons",
+                notesContent: "Critical apparatus and notes will appear here when an item is selected.",
+                prosopographyTitle: "Prosopography", prosopographyIntro: "Systematic analysis of persons mentioned in the manuscripts of this collection.",
+                searchBtn: "Search", clearBtn: "Clear", entriesLabel: "Items", personsLabel: "Persons", patronymicsLabel: "Surnames/Patronyms", occupationsLabel: "Status/Occupations",
+                entryLabel: "Item:", typeLabel: "Status:", patronymicLabel: "Surname:", occupationLabel: "Occupation:", familyTitle: "Family:", resultsCountLabel: "results",
+                role: { main: "Main Person", parent: "Parent", kinship: "Relative", witness: "Witness" },
+            }
+        };
+
+        // --- CORE APPLICATION LOGIC ---
+        let currentLanguage = 'ka', currentTab = 'reading', currentTextView = 'georgian', showExpanded = true, showMarkup = true;
+        let prosopographyResults = [], allPersonsMap = new Map();
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+        function initializeApp() {
+            if (typeof teiData === 'undefined' || !teiData.entries) {
+                console.error("Data object `teiData` not found.");
+                document.getElementById('textContainer').innerHTML = '<p style="color: red; font-weight: bold;">Error: Could not load manuscript data.</p>';
+                return;
+            }
+            if (typeof authorityData === 'undefined') {
+                 console.warn("Authority data not found. Popups will have limited information.");
+            }
+            processProsopographyData();
+            updateUILanguage();
+            setTab('reading');
+            document.getElementById('showExpanded')?.addEventListener('change', (e) => { showExpanded = e.target.checked; renderText(); });
+            document.getElementById('showMarkup')?.addEventListener('change', (e) => { showMarkup = e.target.checked; renderText(); });
+        }
+
+        // --- ALL OTHER FUNCTIONS ARE UNCHANGED FROM PREVIOUS FIX, EXCEPT FOR showPersonPopup AND createPersonCard ---
+
+        function toggleLanguage() {
+            currentLanguage = (currentLanguage === 'ka') ? 'en' : 'ka';
+            updateUILanguage();
+        }
+
+        function updateUILanguage() {
+            const t = translations[currentLanguage];
+            Object.keys(t).forEach(key => {
+                const element = document.getElementById(key);
+                if (element && typeof t[key] === 'string') {
+                    if (['metaInfo', 'prosopographyIntro', 'notesContent'].includes(key)) {
+                         element.innerHTML = t[key];
+                    } else {
+                         element.textContent = t[key];
+                    }
+                }
+            });
+            // Update placeholders and specific labels
+            const nameInput = document.getElementById('nameSearch');
+            if (nameInput) nameInput.placeholder = currentLanguage === 'ka' ? 'სახელი' : 'Name';
+            const patronymicInput = document.getElementById('patronymicSearch');
+            if (patronymicInput) patronymicInput.placeholder = currentLanguage === 'ka' ? 'გვარი/მამისახელი' : 'Surname/Patronym';
+
+
+            populateTOC();
+            populatePersonIndex();
+            populateLegend();
+            renderText();
+            if (currentTab === 'prosopography') {
+                updateStatistics(); // Update labels in stats
+                displayProsopographyResults(); // Re-render cards with new language
+            }
+        }
+
+        function populateLegend() {
+            const t = translations[currentLanguage];
+            const legendContainer = document.getElementById('legendContainer');
+            if (!legendContainer) return;
+            legendContainer.innerHTML = `
+                <div class="legend-item"><span style="color: #7f8c8d; font-style: italic;">[ ]</span><span>${t.suppliedDesc}</span></div>
+                <div class="legend-item"><span style="text-decoration: line-through; color: #e74c3c;">ტექსტი</span><span>${t.deletedDesc}</span></div>
+                <div class="legend-item"><span style="color: #27ae60; background: #e8f5e9;">ტექსტი</span><span>${t.addedDesc}</span></div>
+                <div class="legend-item"><span style="border-bottom: 1px dotted #3498db;">ტექსტი</span><span>${t.abbrDesc}</span></div>
+                <div class="legend-item"><span class="person-name" style="cursor:default;">სახელი</span><span>${t.personDesc}</span></div>
+                <div class="legend-item"><span class="gap">...</span><span>${t.gapDesc}</span></div>
+            `;
+        }
+
+        function setTextView(view) {
+            currentTextView = view;
+            document.getElementById('georgianBtn').classList.toggle('active', view === 'georgian');
+            document.getElementById('englishBtn').classList.toggle('active', view === 'english');
+            renderText();
+        }
+
+        function setTab(tabName) {
+            currentTab = tabName;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`${tabName}View`)?.classList.add('active');
+            document.querySelectorAll('.nav-tabs button').forEach(el => el.classList.remove('active'));
+            document.getElementById(`${tabName}Tab`)?.classList.add('active');
+            if (tabName === 'prosopography') {
+                 updateStatistics();
+                 prosopographyResults = teiData.entries.filter(e => e.prosopography && e.prosopography.length > 0);
+                 displayProsopographyResults();
+            }
+        }
+
+        function getLocalizedRole(roleKey) {
+            return translations[currentLanguage].role[roleKey] || roleKey;
+        }
+
+        // --- ENHANCED: showPersonPopup now uses authorityData ---
+        function showPersonPopup(personRef) {
+            const personInText = allPersonsMap.get(personRef);
+            const personDetails = (typeof authorityData !== 'undefined') ? authorityData[personRef] : null;
+            if (!personInText && !personDetails) return;
+
+            const t = translations[currentLanguage];
+            const name = personDetails?.name || personInText?.name;
+            const patronymic = personDetails?.patronymic || personInText?.patronymic;
+
+            document.getElementById('popupName').textContent = `${name || ''} ${patronymic || ''}`.trim();
+
+            let content = '';
+
+            // Get role from the text context
+            if (personInText?.role) {
+                content += `<p><strong>${t.typeLabel}</strong> ${getLocalizedRole(personInText.role)}</p>`;
+            }
+            // Get detailed info from authority file
+            if(personDetails) {
+                if(personDetails.occupation) content += `<p><strong>${t.occupationLabel}</strong> ${personDetails.occupation}</p>`;
+                if(personDetails.dates) content += `<p><strong>${t.datesTitle}</strong> ${personDetails.dates}</p>`;
+                if(personDetails.bio) content += `<p><strong>${t.bioTitle}</strong><br>${personDetails.bio}</p>`;
+                if(personDetails.relatedPersons && personDetails.relatedPersons.length > 0) {
+                    content += `<p><strong>${t.relatedTitle}</strong><br>`;
+                    personDetails.relatedPersons.forEach(relRef => {
+                        const relatedPerson = authorityData[relRef];
+                        if(relatedPerson) {
+                            content += `<a href="#" onclick="closePersonPopup(); showPersonPopup('${relRef}'); return false;">${relatedPerson.name} ${relatedPerson.patronymic || ''}</a>; `;
+                        }
+                    });
+                    content = content.slice(0, -2); // remove last '; '
+                    content += `</p>`;
+                }
+            }
+
+            // Add links to all occurrences in the text
+            if (personInText && personInText.occurrences.length > 0) {
+                content += `<p><strong>${t.entryLabel}</strong> `;
+                const links = personInText.occurrences.map(entryId => {
+                    const entry = teiData.entries.find(e => e.id === entryId);
+                    return entry ? `<a href="#" onclick="setTab('reading'); scrollToEntry('${entry.id}'); closePersonPopup(); return false;">${entry.manuscript} #${entry.n}</a>` : '';
+                });
+                content += links.join(', ');
+                content += `</p>`;
+            }
+
+            document.getElementById('popupContent').innerHTML = content;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('personPopup').style.display = 'block';
+        }
+
+        // --- ENHANCED: createPersonCard now uses authorityData ---
+        function createPersonCard(entry) {
+            const t = translations[currentLanguage];
+            let cardHtml = '';
+            if (entry.prosopography) {
+                 const mainPersonRef = entry.prosopography[0].ref; // Assume first person is main for the card
+                 const personDetails = (typeof authorityData !== 'undefined') ? authorityData[mainPersonRef] : null;
+                 const personInText = allPersonsMap.get(mainPersonRef);
+
+                 if (personDetails || personInText) {
+                    const name = personDetails?.name || personInText.name;
+                    const patronymic = personDetails?.patronymic || personInText.patronymic;
+
+                    cardHtml += `<div class="person-card">
+                        <div class="person-card-header georgian-text" onclick="showPersonPopup('${mainPersonRef}')" style="cursor:pointer;">${name || 'უცნობი'} ${patronymic || ''}</div>
+                        <div class="person-details">`;
+
+                    cardHtml += `<div class="detail-item"><span class="detail-label">${t.entryLabel}</span><span><a href="#" onclick="setTab('reading'); scrollToEntry('${entry.id}'); return false;">${entry.manuscript} #${entry.n}</a></span></div>`;
+                    if (personInText?.role) cardHtml += `<div class="detail-item"><span class="detail-label">${t.typeLabel}</span><span>${getLocalizedRole(personInText.role)}</span></div>`;
+                    if (personDetails?.occupation) cardHtml += `<div class="detail-item"><span class="detail-label">${t.occupationLabel}</span><span class="georgian-text">${personDetails.occupation}</span></div>`;
+                    if (personDetails?.dates) cardHtml += `<div class="detail-item"><span class="detail-label">${t.datesTitle}</span><span>${personDetails.dates}</span></div>`;
+
+                    cardHtml += `</div>`;
+
+                    // Family/Related section
+                    const relatedRefs = new Set((personDetails?.relatedPersons || []).concat(entry.prosopography.slice(1).map(p => p.ref)));
+                    if (relatedRefs.size > 0) {
+                        cardHtml += `<div class="family-section"><div class="family-title">${t.relatedTitle}</div>`;
+                        relatedRefs.forEach(ref => {
+                            const memberDetails = authorityData?.[ref] || allPersonsMap.get(ref);
+                            if (memberDetails) {
+                                 cardHtml += `<span class="family-member georgian-text" onclick="showPersonPopup('${ref}')" style="cursor:pointer;">${memberDetails.name || ''} ${memberDetails.patronymic || ''}</span>`;
+                            }
+                        });
+                        cardHtml += `</div>`;
+                    }
+                    cardHtml += `</div>`;
+                 }
+            }
+            return cardHtml;
+        }
+
+        // --- All other functions (unchanged from the previous version) ---
+        function closePersonPopup(){document.getElementById('overlay').style.display='none';document.getElementById('personPopup').style.display='none';}
+        function toggleCollapsible(e){const t=e.nextElementSibling,n=e.querySelector(".collapse-icon");t?.classList.toggle("active"),n?.classList.toggle("expanded")}
+        function toggleManuscript(e){const t=e.nextElementSibling,n=e.querySelector(".collapse-icon");t?.classList.toggle("active"),n?.classList.toggle("expanded")}
+        function processProsopographyData(){allPersonsMap.clear(),teiData.entries.forEach(e=>{e.prosopography&&e.prosopography.forEach(t=>{allPersonsMap.has(t.ref)||allPersonsMap.set(t.ref,{...t,occurrences:[]}),allPersonsMap.get(t.ref).occurrences.push(e.id)})})}
+        function populateTOC(){const e=document.getElementById("tocList");if(!e)return;e.innerHTML="";const t={};teiData.entries.forEach(e=>{t[e.manuscript]||(t[e.manuscript]=[]),t[e.manuscript].push(e)});for(const n in t){const o=t[n],a=document.createElement("li"),s=document.createElement("div");s.className="toc-manuscript-header",s.innerHTML=`<span>${n}</span><span class="collapse-icon expanded">▶</span>`,s.onclick=()=>toggleManuscript(s);const i=document.createElement("ul");i.className="toc-entry-list active",o.forEach(t=>{const n=document.createElement("li");n.className="toc-entry-item",n.textContent=`${"ka"===currentLanguage?"მუხლი":"Item"} ${t.n}`,n.onclick=e=>{e.stopPropagation(),document.querySelectorAll(".toc-list li.toc-entry-item").forEach(e=>e.classList.remove("active")),n.classList.add("active"),scrollToEntry(t.id),updateManuscriptInfo(t.manuscript)},i.appendChild(n)}),a.appendChild(s),a.appendChild(i),e.appendChild(a)}}
+        function populatePersonIndex(){const e=document.getElementById("personIndex");if(!e)return;e.innerHTML="";Array.from(allPersonsMap.values()).sort((e,t)=>{const n=e.name||"",o=t.name||"";return n.localeCompare(o,"ka")}).forEach(t=>{const n=document.createElement("div");n.className="index-item georgian-text",n.textContent=`${t.name||""} ${t.patronymic||""}`.trim(),n.dataset.ref=t.ref,n.onclick=()=>{'reading'!==currentTab?(setTab("reading"),setTimeout(()=>highlightPerson(t.ref),100)):highlightPerson(t.ref)},e.appendChild(n)})}
+        function updateManuscriptInfo(e){const t=document.getElementById("manuscriptInfoPanel"),n=document.getElementById("manuscriptInfoPlaceholder");if(!t||!n)return;const o=teiData.manuscripts?.[e];o?(n.style.display="none",t.innerHTML=`\n                    <p><strong>${"ka"===currentLanguage?"ხელნაწერი":"Manuscript"}:</strong> ${o.idno||"N/A"}</p>\n                    <p><strong>${"ka"===currentLanguage?"დაცვის ადგილი":"Repository"}:</strong> ${o.repository||"N/A"}</p>\n                    <p><strong>${"ka"===currentLanguage?"ბეჭდური გამოცემა":"Print Edition"}:</strong> ${o.publication||"N/A"}</p>\n                `):(t.innerHTML="",n.style.display="block",n.textContent=translations[currentLanguage].manuscriptInfoPlaceholder)}
+        function renderText(){const e=document.getElementById("textContainer");if(!e)return;e.innerHTML="",teiData.entries.forEach(t=>e.appendChild(createEntryElement(t)))}
+        function createEntryElement(e){const t=document.createElement("div");t.className="entry",t.id=e.id;const n=document.createElement("div");n.className="entry-manuscript-name",n.textContent=e.manuscript,t.appendChild(n);const o=document.createElement("div");o.className="entry-number",o.textContent=`#${e.n}`,t.appendChild(o);const a=document.createElement("div");a.className="text-content";const s=document.createElement("p");return s.innerHTML="english"===currentTextView&&e.english?e.english.text:applyMarkup(e),a.appendChild(s),t.appendChild(a),t}
+        function applyMarkup(e){if(!e.georgian)return"";let t=e.georgian.text;if(!showMarkup||!e.georgian.markup)return t;return[...e.georgian.markup].sort((e,t)=>t.start-e.start).forEach(e=>{const n=t.substring(e.start,e.end);let o=n;switch(e.type){case"abbr":o=showExpanded?`<span class="abbreviation" data-abbr="${e.abbr}">${e.expan}</span>`:e.abbr;break;case"persName":o=`<span class="person-name georgian-text" data-ref="${e.ref}" onclick="showPersonPopup('${e.ref}')">${n}</span>`;break;case"supplied":o=`<span class="supplied">[${n}]</span>`;break;case"del":o=`<span class="deleted">${n}</span>`;break;case"add":o=`<span class="added">${n}</span>`;break;case"gap":o='<span class="gap">...</span>'}t=t.substring(0,e.start)+o+t.substring(e.end)}),t}
+        function scrollToEntry(e){const t=document.getElementById(e);if(t){const e=document.querySelector("#textPanel .panel-content");e&&e.scrollTo({top:t.offsetTop-e.offsetTop-20,behavior:"smooth"}),t.style.transition="background-color 0.5s",t.style.backgroundColor="#e3f2fd",setTimeout(()=>{t.style.backgroundColor="white"},1500)}}
+        function highlightPerson(e){document.querySelectorAll(".person-name, .index-item").forEach(e=>e.classList.remove("highlighted-by-index")),document.querySelectorAll(`.person-name[data-ref="${e}"]`).forEach(e=>e.classList.add("highlighted-by-index")),document.querySelectorAll(`.index-item[data-ref="${e}"]`).forEach(e=>e.classList.add("highlighted-by-index"));const t=document.querySelector(".person-name.highlighted-by-index");t&&scrollToEntry(t.closest(".entry").id)}
+        document.body.addEventListener("mouseover",e=>{if(e.target.classList.contains("abbreviation")){const t=document.getElementById("tooltip");t.textContent=`${translations[currentLanguage].abbrDesc}: ${e.target.dataset.abbr}`;const n=e.target.getBoundingClientRect();t.style.left=`${window.scrollX+n.left+n.width/2-t.offsetWidth/2}px`,t.style.top=`${window.scrollY+n.top-t.offsetHeight-5}px`,t.style.display="block",setTimeout(()=>{t.style.opacity=1},10)}}),document.body.addEventListener("mouseout",e=>{if(e.target.classList.contains("abbreviation")){const e=document.getElementById("tooltip");e.style.opacity=0,setTimeout(()=>{e.style.display="none"},200)}});
+        function updateStatistics(){const e=teiData.entries.length,t=new Set,n=new Set;allPersonsMap.forEach(e=>{e.patronymic&&t.add(e.patronymic),e.occupation&&n.add(e.occupation)});const o=document.getElementById("totalEntries");o&&(o.textContent=e);const a=document.getElementById("totalPersons");a&&(a.textContent=allPersonsMap.size);const s=document.getElementById("uniquePatronymics");s&&(s.textContent=t.size);const i=document.getElementById("occupationsCount");i&&(i.textContent=n.size)}
+        function performSearch(){const e=document.getElementById("nameSearch").value.toLowerCase(),t=document.getElementById("patronymicSearch").value.toLowerCase(),n=document.getElementById("typeFilter").value,o=new Set;allPersonsMap.forEach(a=>{const s=!e||a.name&&a.name.toLowerCase().includes(e),i=!t||a.patronymic&&a.patronymic.toLowerCase().includes(t),c=!n||a.role===n;s&&i&&c&&o.add(a.ref)}),prosopographyResults=teiData.entries.filter(e=>e.prosopography&&e.prosopography.some(e=>o.has(e.ref))),displayProsopographyResults()}
+        function clearSearch(){document.getElementById("nameSearch").value="",document.getElementById("patronymicSearch").value="",document.getElementById("typeFilter").value="",performSearch()}
+        function displayProsopographyResults(){const e=document.getElementById("personCards"),t=document.getElementById("resultsCount"),n=document.getElementById("resultsCountLabel");if(!e||!t)return;const o=translations[currentLanguage];t.textContent=prosopographyResults.length,n.textContent=o.resultsCountLabel,e.innerHTML=0===prosopographyResults.length?`<div style="text-align: center; padding: 2rem; color: #7f8c8d;">${"ka"===currentLanguage?"შედეგი ვერ მოიძებნა":"No results found"}</div>`:prosopographyResults.map(createPersonCard).join("")}
+    </script>
+</body>
+</html>
