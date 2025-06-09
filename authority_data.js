@@ -1,176 +1,55 @@
 // authority_data.js
-// This file contains the biographical information for individuals,
-// generated from your TEI/XML prosopography file.
+// Central prosopographical authority list for all manuscripts.
 
 const authorityData = {
-  "#p1001": {
-    name: "ბაგრატ IV",
-    patronymic: "ბაგრატიონი",
-    occupation: "გაერთიანებული საქართველოს მეფე, კურაპალატი",
-    bio: "საქართველოს მეფე 1027-1072 წლებში, გიორგი I-ის ძე...",
-    dates: "1018 - 1072-11-24",
-    relatedPersons: ["#p1001_a", "#p1001_b", "#p1001_c", "#p1001_d", "#p1002", "#p1001_f"]
-  },
-  "#p1002": {
-    name: "გიორგი II",
-    patronymic: "ბაგრატიონი",
-    occupation: "საქართველოს მეფე",
-    dates: "c. 1050 - c. 1112",
-    relatedPersons: ["#p1001", "#p1001_d", "#p1003"]
-  },
-  "#p1003": {
-    name: "დავით IV აღმაშენებელი",
-    patronymic: "ბაგრატიონი",
-    occupation: "საქართველოს მეფე",
-    dates: "1073 - 1125-01-24",
-    relatedPersons: ["#p1002", "#p1004"]
-  },
-  "#p1004": {
-    name: "დემეტრე I",
-    patronymic: "ბაგრატიონი",
-    occupation: "საქართველოს მეფე",
-    dates: "c. 1093 - 1156",
-    relatedPersons: ["#p1003", "#p1005"]
-  },
-  "#p1005": {
-    name: "გიორგი III",
-    patronymic: "ბაგრატიონი",
-    occupation: "საქართველოს მეფე",
-    dates: "unknown - 1184",
-    relatedPersons: ["#p1004", "#p1006"]
-  },
-  "#p1006": {
-    name: "თამარ მეფე",
-    patronymic: "ბაგრატიონი",
-    occupation: "საქართველოს მეფე",
-    dates: "c. 1160 - 1213-01-18",
-    relatedPersons: ["#p1005", "#p1007"]
-  },
-  "#p1007": {
-    name: "გიორგი IV ლაშა",
-    patronymic: "ბაგრატიონი",
-    occupation: "საქართველოს მეფე",
-    dates: "1192 - 1223-01-18",
-    relatedPersons: ["#p1006"]
-  },
-  "#p1008": {
-    name: "ყვარყვარე II ჯაყელი",
-    //patronymic: "ჯაყელი",
-    occupation: "ათაბაგი",
-    dates: "c. 1416 - 1498-07-01",
-    relatedPersons: ["#p1009", "#p1010", "#p1011"]
-  },
-  "#p1009": {
-    name: "დედისიმედი",
-    patronymic: "",
-    occupation: "",
-    dates: "unknown - 1491-12-18",
-    relatedPersons: ["#p1008", "#p1010", "#p1011"]
-  },
-  "#p1010": {
-    name: "ქაიხოსრო I ჯაყელი",
-    //patronymic: "ჯაყელი",
-    occupation: "ათაბაგი",
-    dates: "c. 1447 - 1500-05-06",
-    relatedPersons: ["#p1008", "#p1009", "#p1011"]
-  },
-  "#p1011": {
-    name: "მზეჭაბუკ I ათაბაგი",
-    //patronymic: "ჯაყელი",
-    occupation: "ათაბაგი",
-    dates: "unknown - 1515",
-    relatedPersons: ["#p1008", "#p1009", "#p1010"]
-  },
-  "#p1012": {
-    name: "ყვარყვარე III ჯაყელი",
-    //patronymic: "ჯაყელი",
-    occupation: "ათაბაგი",
-    dates: "c. 1469 - 1535",
-    relatedPersons: ["#p1010", "#p1013", "#p1015"]
-  },
-  "#p1013": {
-    name: "ანნა",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1012", "#p1015"]
-  },
-  "#p1014": {
-    name: "მზეჭაბუკ ჯაყელი",
-    //patronymic: "ჯაყელი",
-    occupation: "",
-    bio: "Died young.",
-    dates: "",
-    relatedPersons: ["#p1012", "#p1013"]
-  },
-  "#p1015": {
-    name: "ქაიხოსრო II ჯაყელი",
-    //patronymic: "ჯაყელი",
-    occupation: "ათაბაგი",
-    dates: "c. 1522 - 1573",
-    relatedPersons: ["#p1012", "#p1013"]
-  },
-  "#p1016": {
-    name: "სოილ",
-    patronymic: "კოპას ძე",
-    occupation: "ამილახორი, მხატვარი",
-    dates: "",
-    relatedPersons: ["#p1017", "#p1018", "#p1019"]
-  },
-  "#p1017": {
-    name: "რუამ-ყოფილი რაშთაელი",
-    patronymic: "კოპას ძე",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1016", "#p1018"]
-  },
-  "#p1018": {
-    name: "რაინდო-ყოფილი ეკატირინე",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1016", "#p1017"]
-  },
-  "#p1019": {
-    name: "მანგუშარ-ყოფილი მართა",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1016"]
-  },
-  "#p1001_a": {
-    name: "გიორგი I",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1001"]
-  },
-  "#p1001_b": {
-    name: "მარიამ არწრუნი",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1001"]
-  },
-  "#p1001_c": {
-    name: "ელენე არგიროსი",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1001"]
-  },
-  "#p1001_d": {
-    name: "ბორენა დედოფალი",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1001", "#p1002"]
-  },
-  "#p1001_f": {
-    name: "მარიამ-მართა",
-    patronymic: "",
-    occupation: "",
-    dates: "",
-    relatedPersons: ["#p1001"]
-  }
+    // --- Persons from Q-969 and Q-642 ---
+    "p1001": { id: "p1001", name: "ბაგრატ", standardName: "ბაგრატ IV", wikipedia: "Bagrat_IV_of_Georgia", dynasty: "ბაგრატიონი", occupation: "გაერთიანებული საქართველოს მეფე", dates: "1018 - 1072-11-24", family: { father: "p1001_a", mother: "p1001_b", son: "p1002" } },
+    "p1001_a": { id: "p1001_a", standardName: "გიორგი I", wikipedia: "George_I_of_Georgia", family: { son: "p1001" } },
+    "p1001_b": { id: "p1001_b", standardName: "მარიამ არწრუნი", wikipedia: "Mariam_of_Vaspurakan", family: { son: "p1001" } },
+    "p1002": { id: "p1002", name: "გიორგი", standardName: "გიორგი II", wikipedia: "George_II_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე, კესაროსი", dates: "c. 1050 - c. 1112", family: { father: "p1001", son: "p1003" } },
+    "p1003": { id: "p1003", name: "დავით", standardName: "დავით IV აღმაშენებელი", wikipedia: "David_IV", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "1073 - 1125-01-24", family: { father: "p1002", son: "p1004" } },
+    "p1004": { id: "p1004", name: "დემეტრე", standardName: "დემეტრე I", wikipedia: "Demetrius_I_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "c. 1093 - 1156", family: { father: "p1003", son: "p1005" } },
+    "p1005": { id: "p1005", name: "გიორგი", standardName: "გიორგი III", wikipedia: "George_III_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "d. 1184", family: { father: "p1004", daughter: "p1006" } },
+    "p1006": { id: "p1006", name: "თამარ", standardName: "თამარ მეფე", wikipedia: "Tamar_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "c. 1160 - 1213-01-18", family: { father: "p1005", son: "p1007", daughter: "p3001" } },
+    "p1007": { id: "p1007", name: "გიორგი", standardName: "გიორგი IV ლაშა", wikipedia: "George_IV_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "1192 - 1223-01-18", family: { mother: "p1006", sister: "p3001" } },
+    "p1008": { id: "p1008", name: "ყუარყუარე", standardName: "ყვარყვარე II ჯაყელი", wikipedia: "Qvarqvare_II_Jaqeli", dynasty: "ჯაყელი", occupation: "ათაბაგი", dates: "c. 1416 - 1498-07-01", family: { spouse: "p1009", sons: ["p1010", "p1011"] } },
+    "p1009": { id: "p1009", name: "დედისიმედი", dates: "d. 1491-12-18", family: { spouse: "p1008", sons: ["p1010", "p1011"] } },
+    "p1010": { id: "p1010", name: "ქაიხოსრო", standardName: "ქაიხოსრო I ჯაყელი", wikipedia: "Kaikhosro_I_Jaqeli", dynasty: "ჯაყელი", occupation: "ათაბაგი", dates: "c. 1447 - 1500-05-06", family: { father: "p1008", mother: "p1009", brother: "p1011" } },
+    "p1011": { id: "p1011", name: "მზეჭაბუკ-ყოფილი იაკობ", standardName: "მზეჭაბუკ I ათაბაგი", wikipedia: "Mzetchabuk_Jaqeli", dynasty: "ჯაყელი", occupation: "ათაბაგი", dates: "d. 1515", family: { father: "p1008", mother: "p1009", brother: "p1010" } },
+    "p1012": { id: "p1012", name: "ყუარყუარე", patronymic: "ნავ", standardName: "ყვარყვარე III ჯაყელი", wikipedia: "Qvarqvare_III_Jaqeli", dynasty: "ჯაყელი", occupation: "ათაბაგი", dates: "c. 1469 - 1535", family: { spouse: "p1013", sons: ["p1014", "p1015"] } },
+    "p1013": { id: "p1013", name: "ანნა", family: { spouse: "p1012", sons: ["p1014", "p1015"] } },
+    "p1014": { id: "p1014", name: "მზეჭაბუკ", standardName: "მზეჭაბუკ ჯაყელი", dynasty: "ჯაყელი", bio: "Son of Qvarqvare III. Died young.", family: { father: "p1012", mother: "p1013", brother: "p1015"} },
+    "p1015": { id: "p1015", name: "ქაიხოსრო", standardName: "ქაიხოსრო II ჯაყელი", wikipedia: "Kaikhosro_II_Jaqeli", dynasty: "ჯაყელი", occupation: "ათაბაგი", dates: "c. 1522 - 1573", family: { father: "p1012", mother: "p1013", brother: "p1014"} },
+    "p1016": { id: "p1016", name: "სოილ", patronymic: "კოპას ძე", occupation: "ამილახორი, მხატვარი", family: { father: "p1017", mother: "p1018", spouse: "p1019" } },
+    "p1017": { id: "p1017", name: "რუამ-ყოფილი რაშთაელი", patronymic: "კოპას ძე", family: { son: "p1016", spouse: "p1018" } },
+    "p1018": { id: "p1018", name: "რაინდო-ყოფილი ეკატირინე", family: { son: "p1016", spouse: "p1017" } },
+    "p1019": { id: "p1019", name: "მანგუშარ-ყოფილი მართა", family: { spouse: "p1016" } },
+    "p3001": { id: "p3001", name: "რუსუდან", standardName: "რუსუდანი", wikipedia: "Rusudan_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "c. 1194 - 1245", family: { mother: "p1006", brother: "p1007", son: "p3002" } },
+    "p3002": { id: "p3002", name: "დავით", standardName: "დავით VI ნარინი", wikipedia: "David_VI_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "1225 - 1293", family: { mother: "p3001", cousin: "p3003" } },
+    "p3003": { id: "p3003", name: "დავით", standardName: "დავით VII ულუ", wikipedia: "David_VII_of_Georgia", dynasty: "ბაგრატიონი", occupation: "საქართველოს მეფე", dates: "1215 - 1270", family: { father: "p1007", cousin: "p3002" } },
+    "p3004": { id: "p3004", name: "ეფთჳმე მთაწმიდელი", standardName: "ექვთიმე მთაწმინდელი", wikipedia: "Euthymius_the_Athonite", occupation: "წმინდანი, მწერალი, მთარგმნელი", dates: "c. 955 - 1028" },
+    "p3005": { id: "p3005", name: "მარიამ", standardName: "მარიამ არწრუნი", wikipedia: "Mariam_of_Vaspurakan", occupation: "საქართველოს დედოფალი", dates: "d. after 1003", family: { son: "p1001" } },
+    "p3006": { id: "p3006", name: "მართა", standardName: "მარიამ-მართა", wikipedia: "Maria_of_Alania", occupation: "ბიზანტიის დედოფალი", dates: "c. 1053 - after 1118", family: { father: "p1001" } },
+    "p3007": { id: "p3007", name: "იოვანე" },
+    "p3008": { id: "p3008", name: "იოვანე სჳნგელოზი" },
+    "p3009": { id: "p3009", name: "გიორგი" },
+    "p3010": { id: "p3010", name: "გიორგი მთაწმიდელი", standardName: "გიორგი მთაწმინდელი", wikipedia: "George_the_Athonite", occupation: "წმინდანი, მწერალი, მთარგმნელი", dates: "1009 - 1065" },
+    "p3011": { id: "p3011", name: "გრიგოლ სევასტოსი", patronymic: "ბაკურიანის ძე", standardName: "გრიგოლ ბაკურიანის ძე", wikipedia: "Gregory_Pakourianos", occupation: "ბიზანტიის დიდი დომესტიკოსი", dates: "d. 1086", family: { father: "p3012" } },
+    "p3012": { id: "p3012", name: "ბაკურიანი", family: { son: "p3011" } },
+    "p3013": { id: "p3013", name: "ალექსანდრე", standardName: "ალექსანდრე II (იმერეთის მეფე)", wikipedia: "Alexander_II_of_Imereti", dynasty: "ბაგრატიონი", occupation: "იმერეთის მეფე", dates: "d. 1510-04-01", family: { spouse: "p3014", sons: ["p3015", "p3017"], daughter: "p3019" } },
+    "p3014": { id: "p3014", name: "თამარ", standardName: "თამარი", occupation: "იმერეთის დედოფალი", dates: "d. after 1510", family: { spouse: "p3013", sons: ["p3015", "p3017"] } },
+    "p3015": { id: "p3015", name: "ბაგრატ", standardName: "ბაგრატ III (იმერეთის მეფე)", wikipedia: "Bagrat_III_of_Imereti", dynasty: "ბაგრატიონი", occupation: "იმერეთის მეფე", dates: "1495 - 1565", family: { father: "p3013", mother: "p3014", brothers: ["p3016", "p3017"] } },
+    "p3016": { id: "p3016", name: "გიორგი", dynasty: "ბაგრატიონი", family: { father: "p3013", brothers: ["p3015", "p3017"] } },
+    "p3017": { id: "p3017", name: "ვახტანგ", standardName: "ვახტანგ ბაგრატიონი (იმერეთი)", dynasty: "ბაგრატიონი", family: { father: "p3013", mother: "p3014", brothers: ["p3015", "p3016"] } },
+    "p3018": { id: "p3018", name: "სფირიდონ", occupation: "პატრონი", family: { spouse: "p3019", son: "p3020" } },
+    "p3019": { id: "p3019", name: "თინათინ", occupation: "პატრონი", family: { father: "p3013", spouse: "p3018", son: "p3020" } },
+    "p3020": { id: "p3020", name: "იოსაფატ", occupation: "პატრონი", family: { father: "p3018", mother: "p3019", spouse: "p3021" } },
+    "p3021": { id: "p3021", name: "ქეთაონ", occupation: "პატრონი", family: { spouse: "p3020" } },
+    "p3022": { id: "p3022", name: "მამისა", occupation: "პატრონი" },
+    "p3023": { id: "p3023", name: "ირინე", occupation: "პატრონი" },
+    "p3024": { id: "p3024", name: "აბდულმისე", occupation: "პატრონი" },
+    "p3025": { id: "p3025", name: "ელენე", occupation: "პატრონი" },
+    "p3026": { id: "p3026", name: "იორამ", occupation: "პატრონი" },
+    "p3027": { id: "p3027", name: "თამარ", occupation: "პატრონი" },
+    "p3028": { id: "p3028", name: "გულქან", occupation: "პატრონი" }
 };
