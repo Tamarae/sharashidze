@@ -55,7 +55,7 @@ const authorityData = {
   },
   "#p1008": {
     name: "ყვარყვარე II ჯაყელი",
-    patronymic: "ჯაყელი",
+    //patronymic: "ჯაყელი",
     occupation: "ათაბაგი",
     dates: "c. 1416 - 1498-07-01",
     relatedPersons: ["#p1009", "#p1010", "#p1011"]
@@ -69,21 +69,21 @@ const authorityData = {
   },
   "#p1010": {
     name: "ქაიხოსრო I ჯაყელი",
-    patronymic: "ჯაყელი",
+    //patronymic: "ჯაყელი",
     occupation: "ათაბაგი",
     dates: "c. 1447 - 1500-05-06",
     relatedPersons: ["#p1008", "#p1009", "#p1011"]
   },
   "#p1011": {
     name: "მზეჭაბუკ I ათაბაგი",
-    patronymic: "ჯაყელი",
+    //patronymic: "ჯაყელი",
     occupation: "ათაბაგი",
     dates: "unknown - 1515",
     relatedPersons: ["#p1008", "#p1009", "#p1010"]
   },
   "#p1012": {
     name: "ყვარყვარე III ჯაყელი",
-    patronymic: "ჯაყელი",
+    //patronymic: "ჯაყელი",
     occupation: "ათაბაგი",
     dates: "c. 1469 - 1535",
     relatedPersons: ["#p1010", "#p1013", "#p1015"]
@@ -97,7 +97,7 @@ const authorityData = {
   },
   "#p1014": {
     name: "მზეჭაბუკ ჯაყელი",
-    patronymic: "ჯაყელი",
+    //patronymic: "ჯაყელი",
     occupation: "",
     bio: "Died young.",
     dates: "",
@@ -105,7 +105,7 @@ const authorityData = {
   },
   "#p1015": {
     name: "ქაიხოსრო II ჯაყელი",
-    patronymic: "ჯაყელი",
+    //patronymic: "ჯაყელი",
     occupation: "ათაბაგი",
     dates: "c. 1522 - 1573",
     relatedPersons: ["#p1012", "#p1013"]

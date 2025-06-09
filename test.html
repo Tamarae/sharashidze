@@ -26,7 +26,7 @@
         .main-container { max-width: 1400px; margin: 0 auto; padding: 2rem; min-height: calc(100vh - 180px); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .tab-content h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.6rem; font-weight: 400; border-bottom: 1px solid #ecf0f1; padding-bottom: 0.8rem; }
+        .tab-content h2 { color: #2c3e50; margin-bottom: 1.5rem; font-size: 1.6rem; font-weight: 400; padding: 2rem; }
         .reading-layout { display: grid; grid-template-columns: 300px 1fr 350px; gap: 2rem; height: calc(100vh - 250px); }
         .panel { background: white; border: 1px solid #e0e0e0; border-radius: 5px; overflow: hidden; display: flex; flex-direction: column; }
         .panel-header { padding: 1rem; border-bottom: 1px solid #e0e0e0; background: #f8f9fa; font-weight: 500; font-size: 1rem; color: #2c3e50; flex-shrink: 0; }
@@ -143,8 +143,8 @@
 
         <!-- This is the content for the Prosopography Tab -->
         <div id="prosopographyView" class="tab-content">
-            <h2 id="prosopographyTitle">პროსოპოგრაფია</h2>
-            <p id="prosopographyIntro" class="georgian-text" style="margin-bottom: 2rem; max-width: 800px;">ამ კოლექციაში შემავალ ხელნაწერებში ხსენებული პირების სისტემატური ანალიზი.</p>
+            <h2 id="prosopographyTitle"></h2>
+            <p id="prosopographyIntro" class="georgian-text" style="margin-bottom: 2rem; max-width: 800px;">კოლექციის ხელნაწერებში ხსენებული პირების საძიებო გვერდი.</p>
 
             <div class="prosopo-controls">
                 <input type="text" id="nameSearch" placeholder="სახელი" onkeyup="performSearch()">
@@ -172,14 +172,20 @@
 
         <!-- This is the content for the Research Tab -->
         <div id="researchView" class="tab-content">
-            <h2 id="researchTabTitle" class="georgian-text">კვლევა</h2>
-            <p>ეს სექცია დამუშავების პროცესშია.</p>
+            <h2 id="researchTabTitle" class="georgian-text">ქრ. შარაშიძე, 1961</h2>
+            <p>ეს ნაშრომი „საქართველოს ისტორიის მასალების (XV-XVIII სს.) 1954 წ. გამოქვეყნებული I ნაკვეთის უშუალო გაგრძელებას წარმოადგენს.</p>
+            <p>ქრონოლოგიური ფარგლებისა და შინაარსის მიხედვით ეს არის სამხრეთ საქართველოს XV–XVI სს. ისტორიის მასალები XV ს. 20-იანი წლებიდან 1587 წ-დე.</p>
+            <p>ნაშრომი მიზნად ისახავს მკვლევართათვის მისაწვდომი გახადოს დღემდის ნაკლებად ცნობილი და საისტორიო თხზულებებში სრულიად გამოუყენებელი ძეგლები: სამი ხელნაწერიდან (8:1246, C:642, C6:969) გადმოწერილი მოსახსენებლები
+              და თ. ჟორდანიას „ქრონიკების“ II წიგნში, უმეტეს შემთხვევაში, შემოკლებით მოთავსებული საბუთები: #ძ: 320, 522, 547, 549, 91, 697, 720; IIძ ; 2080, 2083, 2130.</p>
+            <p>ჩამოთვლილ ძეგლებს მივყევართ სამხრეთ საქართველოს ისტორიის XVI ს. 90-იან წლებამდის. მთლიანი სახით აღებული დასახელებული საბუთები სამხრეთ საქართველოს ცხოვრების ტრაგიკული ფინალის გარკვეულ ახსნას გვაძლევენ.
+              წინააღმდეგობათა ის რთული ხლართი, რომელიც ასახულია ხსენებულ ძეგლებში, XVI სს. 40-50 წლებში სულ უფრო და უფრო რთულდება და 70-იან წლებში მძაფრი შინაური ბრძოლის ხასიათს იღებს, რაც
+              ხელს უწყობს თურქეთის აგრესორების გამარჯვებასა და საათაბაგოს სრულ ანექსიას XVI ს, 80-90-იან წლებში. [გამოკვლევის სრული ტექსტი]</p>
         </div>
 
         <!-- This is the content for the About Tab -->
         <div id="aboutView" class="tab-content">
-            <h2 id="aboutTabTitle" class="georgian-text">შესახებ</h2>
-            <p>ეს პროექტი წარმოადგენს სამხრეთ საქართველოს ისტორიული მასალების ციფრულ სამეცნიერო გამოცემას.</p>
+            <h2 id="aboutTabTitle" class="georgian-text">ციფრული გამოცემა</h2>
+            <p>„სამხრეთ საქართველოს ისტორიული მასალების” ციფრულ სამეცნიერო გამოცემა შესრულებულია ბეჭდური გამოცემის (1961) მიხედვით, ხელნაწერებისა და პროსოპოგრაფიულ მონაცემთა XML კოდირების საფუძველზე [სრული აღწერა/ფაილების გადმოწერა].</p>
         </div>
     </div>
     <div class="footer"><p>© ილიას სახელმწიფო უნივერსიტეტი, 2025 | Creative Commons Attribution 4.0</p></div>
@@ -207,7 +213,7 @@
                 legendTitle: "ნიშნების განმარტება", suppliedDesc: "დაკარგული ტექსტის აღდგენა", deletedDesc: "წაშლილი ტექსტი", addedDesc: "დამატებული ტექსტი", abbrDesc: "ქარაგმა", personDesc: "პირის სახელი", gapDesc: "დაზიანებული/გაურკვეველი ტექსტი",
                 notesTitle: "შენიშვნები", bioTitle: "ბიოგრაფიული ცნობა", datesTitle: "თარიღები", relatedTitle: "დაკავშირებული პირები",
                 notesContent: "კონკრეტულ მუხლზე დაწკაპებისას აქ გამოჩნდება კრიტიკული აპარატი და დამატებითი შენიშვნები.",
-                prosopographyTitle: "პროსოპოგრაფია", prosopographyIntro: "ამ კოლექციაში შემავალ ხელნაწერებში ხსენებული პირების სისტემატური ანალიზი.",
+                prosopographyIntro: "ხელნაწერებში ხსენებული პირების საძიებო გვერდი",
                 searchBtn: "ძიება", clearBtn: "გასუფთავება", entriesLabel: "მუხლი", personsLabel: "პირი", patronymicsLabel: "გვარი/მამისახელი", occupationsLabel: "სტატუსი/პროფესია",
                 entryLabel: "მუხლი:", typeLabel: "სტატუსი:", patronymicLabel: "გვარი:", occupationLabel: "პროფესია:", familyTitle: "ოჯახი:", resultsCountLabel: "შედეგი",
                 role: { main: "მთავარი პირი", parent: "მშობელი", kinship: "ნათესავი", witness: "მოწმე" },
