@@ -162,8 +162,8 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
                 <div class="stat-card"><span id="totalEntries" class="stat-number">0</span><span class="stat-label" id="entriesLabel">მუხლი</span></div>
                 <div class="stat-card"><span id="totalPersons" class="stat-number">0</span><span class="stat-label" id="personsLabel">პირი</span></div>
-                <div class="stat-card"><span id="uniquePatronymics" class="stat-number">0</span><span class="stat-label" id="patronymicsLabel">გვარი/მამისახელი</span></div>
-                <div class="stat-card"><span id="occupationsCount" class="stat-number">0</span><span class="stat-label" id="occupationsLabel">სტატუსი/პროფესია</span></div>
+                <div class="stat-card"><span id="uniquePatronymics" class="stat-number">0</span><span class="stat-label" id="patronymicsLabel">გვარი</span></div>
+                <div class="stat-card"><span id="occupationsCount" class="stat-number">0</span><span class="stat-label" id="occupationsLabel">სტატუსი</span></div>
             </div>
 
             <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #7f8c8d;"><strong><span id="resultsCount">0</span> <span id="resultsCountLabel">შედეგი</span></strong></p>
@@ -366,8 +366,8 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
                     <div class="stat-card"><span id="totalEntries" class="stat-number">0</span><span class="stat-label" id="entriesLabel">მუხლი</span></div>
                     <div class="stat-card"><span id="totalPersons" class="stat-number">0</span><span class="stat-label" id="personsLabel">პირი</span></div>
-                    <div class="stat-card"><span id="uniquePatronymics" class="stat-number">0</span><span class="stat-label" id="patronymicsLabel">გვარი/მამისახელი</span></div>
-                    <div class="stat-card"><span id="occupationsCount" class="stat-number">0</span><span class="stat-label" id="occupationsLabel">სტატუსი/პროფესია</span></div>
+                    <div class="stat-card"><span id="uniquePatronymics" class="stat-number">0</span><span class="stat-label" id="patronymicsLabel">გვარი</span></div>
+                    <div class="stat-card"><span id="occupationsCount" class="stat-number">0</span><span class="stat-label" id="occupationsLabel">სტატუსი</span></div>
                 </div>
 
                 <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #7f8c8d;"><strong><span id="resultsCount">0</span> <span id="resultsCountLabel">შედეგი</span></strong></p>
@@ -417,10 +417,10 @@
             notesTitle: "შენიშვნები", bioTitle: "ბიოგრაფიული ცნობა", datesTitle: "თარიღები",
             notesContent: "კონკრეტულ მუხლზე დაწკაპებისას აქ გამოჩნდება კრიტიკული აპარატი და დამატებითი შენიშვნები.",
             prosopographyIntro: "ხელნაწერებში ხსენებული პირების საძიებო გვერდი",
-            searchBtn: "ძიება", clearBtn: "გასუფთავება", entriesLabel: "მუხლი", personsLabel: "პირი", patronymicsLabel: "გვარი/მამისახელი", occupationsLabel: "სტატუსი/პროფესია",
+            searchBtn: "ძიება", clearBtn: "გასუფთავება", entriesLabel: "მუხლი", personsLabel: "პირი", patronymicsLabel: "გვარი/მამისახელი", occupationsLabel: "სტატუსი",
             resultsCountLabel: "შედეგი",
             // --- ENHANCED: Added detailed labels for popup ---
-            entryLabel: "ხსენება ტექსტში:", typeLabel: "როლი ტექსტში:", patronymicLabel: "მამისახელი:", standardNameLabel: "სტანდარტული სახელი:", dynastyLabel: "დინასტია:", occupationLabel: "სტატუსი/პროფესია:", familyTitle: "ოჯახი და ნათესავები", wikipediaLabel: "ვიკიპედია",
+            entryLabel: "ხსენება ტექსტში:", typeLabel: "როლი ტექსტში:", patronymicLabel: "მამისახელი:", standardNameLabel: "სტანდარტული სახელი:", dynastyLabel: "დინასტია:", occupationLabel: "სტატუსი:", familyTitle: "ოჯახი და ნათესავები", wikipediaLabel: "ვიკიპედია",
             // --- NEW: Added translations for family roles ---
             family: {
                 father: "მამა", mother: "დედა", son: "ძე", sons: "ძეები", daughter: "ასული", daughters: "ასულები",
@@ -583,7 +583,75 @@
     function toggleManuscript(e){const t=e.nextElementSibling,n=e.querySelector(".collapse-icon");t?.classList.toggle("active"),n?.classList.toggle("expanded")}
     function processProsopographyData(){allPersonsMap.clear();teiData.entries.forEach(entry=>{if(entry.prosopography){entry.prosopography.forEach(p=>{const nameInText=entry.georgian?entry.georgian.text.substring(p.start,p.end):'';if(!allPersonsMap.has(p.ref)){allPersonsMap.set(p.ref,{ref:p.ref,role:p.role,name:nameInText,occurrences:[]});}allPersonsMap.get(p.ref).occurrences.push(entry.id);})}})}
     function populateTOC(){const e=document.getElementById("tocList");if(!e)return;e.innerHTML="";const t={};teiData.entries.forEach(e=>{t[e.manuscript]||(t[e.manuscript]=[]),t[e.manuscript].push(e)});for(const n in t){const o=t[n],a=document.createElement("li"),s=document.createElement("div");s.className="toc-manuscript-header",s.innerHTML=`<span>${n}</span><span class="collapse-icon expanded">▶</span>`,s.onclick=()=>toggleManuscript(s);const i=document.createElement("ul");i.className="toc-entry-list active",o.forEach(t=>{const n=document.createElement("li");n.className="toc-entry-item",n.textContent=`${"ka"===currentLanguage?"მუხლი":"Item"} ${t.n}`,n.onclick=e=>{e.stopPropagation(),document.querySelectorAll(".toc-list .toc-entry-item").forEach(e=>e.classList.remove("active")),n.classList.add("active"),scrollToEntry(t.id),updateManuscriptInfo(t.manuscript)},i.appendChild(n)}),a.appendChild(s),a.appendChild(i),e.appendChild(a)}}
-    function populatePersonIndex(){const e=document.getElementById("personIndex");if(!e)return;e.innerHTML="";const t=new Map;allPersonsMap.forEach((e,n)=>{const o=authorityData?.[n]?.standardName||e.name;t.set(n,{name:o,ref:n})});Array.from(t.values()).sort((e,t)=>{const n=e.name||"",o=t.name||"";return n.localeCompare(o,"ka")}).forEach(t=>{const n=document.createElement("div");n.className="index-item georgian-text",n.textContent=t.name.trim(),n.dataset.ref=t.ref,n.onclick=()=>{'reading'!==currentTab?(setTab("reading"),setTimeout(()=>highlightPerson(t.ref),100)):highlightPerson(t.ref)},e.appendChild(n)})}
+
+    function populatePersonIndex() {
+    const personIndexContainer = document.getElementById("personIndex");
+    if (!personIndexContainer) return;
+
+    personIndexContainer.innerHTML = ""; // Clear the list first
+
+    // Use a Set to track person IDs we've already processed to ensure each person appears only once.
+    const processedPersonIds = new Set();
+    const personsForIndex = [];
+
+    // 1. Iterate through all manuscript entries to find every person.
+    teiData.entries.forEach(entry => {
+        if (entry.prosopography) {
+            entry.prosopography.forEach(person => {
+                const personId = person.ref;
+
+                // If we've already added this person to our list, skip to the next one.
+                if (processedPersonIds.has(personId)) {
+                    return;
+                }
+
+                // 2. Look up the person in the authorityData file. This is the crucial step.
+                const personDetails = authorityData[personId];
+                let displayName = `Unknown (${personId})`; // A fallback name in case of missing data
+
+                if (personDetails) {
+                    // 3. Get the CANONICAL name: prefer 'standardName', but fall back to 'name'.
+                    displayName = personDetails.standardName || personDetails.name;
+                }
+
+                // Add the person to our list for sorting and rendering.
+                personsForIndex.push({
+                    id: personId,
+                    name: displayName
+                });
+
+                // Mark this ID as processed.
+                processedPersonIds.add(personId);
+            });
+        }
+    });
+
+    // 4. Sort the list of unique persons alphabetically according to Georgian rules.
+    personsForIndex.sort((a, b) => {
+        return (a.name || '').localeCompare(b.name || '', 'ka');
+    });
+
+    // 5. Create and append the HTML element for each person to the sidebar.
+    personsForIndex.forEach(person => {
+        const div = document.createElement("div");
+        div.className = "index-item georgian-text";
+        div.textContent = person.name.trim(); // Use the correct canonical name
+        div.dataset.ref = person.id;
+
+        // Keep the original click functionality
+        div.onclick = () => {
+            if (currentTab !== 'reading') {
+                setTab('reading');
+                setTimeout(() => highlightPerson(person.id), 100);
+            } else {
+                highlightPerson(person.id);
+            }
+        };
+        personIndexContainer.appendChild(div);
+    });
+}
+
+
     function updateManuscriptInfo(e){const t=document.getElementById("manuscriptInfoPanel"),n=document.getElementById("manuscriptInfoPlaceholder");if(!t||!n)return;const o=teiData.manuscripts?.[e];o?(n.style.display="none",t.innerHTML=`\n<p><strong>${"ka"===currentLanguage?"ხელნაწერი":"Manuscript"}:</strong> ${o.idno||"N/A"}</p>\n<p><strong>${"ka"===currentLanguage?"დაცვის ადგილი":"Repository"}:</strong> ${o.repository||"N/A"}</p>\n<p><strong>${"ka"===currentLanguage?"ბეჭდური გამოცემა":"Print Edition"}:</strong> ${o.publication||"N/A"}</p>\n`):(t.innerHTML="",n.style.display="block",n.textContent=translations[currentLanguage].manuscriptInfoPlaceholder)}
     function renderText(){const e=document.getElementById("textContainer");if(!e)return;e.innerHTML="",teiData.entries.forEach(t=>e.appendChild(createEntryElement(t)))}
     function createEntryElement(e){const t=document.createElement("div");t.className="entry",t.id=e.id;const n=document.createElement("div");n.className="entry-manuscript-name",n.textContent=e.manuscript,t.appendChild(n);const o=document.createElement("div");o.className="entry-number",o.textContent=`#${e.n}`,t.appendChild(o);const a=document.createElement("div");a.className="text-content";const s=document.createElement("p");return s.innerHTML="english"===currentTextView&&e.english?e.english.text:applyMarkup(e),a.appendChild(s),t.appendChild(a),t}
